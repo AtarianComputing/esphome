@@ -256,7 +256,6 @@ bool SGP4xComponent::measure_raw_(uint16_t &voc_raw, uint16_t &nox_raw) {
   }
   voc_raw = raw_data[0];
   nox_raw = raw_data[1];  // either 0 or the measured NOx ticks
-  voc_raw_ = voc_raw;
   return true;
 }
 
@@ -291,6 +290,10 @@ void SGP4xComponent::update() {
       this->status_set_warning();
     }
   }
+  if (this->raw_sensor_) {
+      this->raw_sensor_->publish_state(this->voc_raw_);
+    }
+  }
   if (this->nox_sensor_) {
     if (this->nox_index_ != UINT16_MAX) {
       this->status_clear_warning();
@@ -300,13 +303,6 @@ void SGP4xComponent::update() {
     }
   }
 }
-
-void SGP4xComponent::update_raw() {
-  if (this->raw_sensor_) {
-    this->raw_sensor_->publish_state(this->voc_raw_);
-  }
-}
-
 
 void SGP4xComponent::dump_config() {
   ESP_LOGCONFIG(TAG, "SGP4x:");

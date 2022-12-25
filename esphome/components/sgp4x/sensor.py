@@ -115,6 +115,10 @@ async def to_code(config):
 
     if CONF_VOC_BASELINE in config:
         cg.add(var.set_voc_baseline(CONF_VOC_BASELINE))
+    
+    if CONF_RAW in config:
+        sens = await sensor.new_sensor(config[CONF_RAW])
+        cg.add(var.set_raw_sensor(sens))
 
     if CONF_VOC in config:
         sens = await sensor.new_sensor(config[CONF_VOC])
