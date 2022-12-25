@@ -77,7 +77,18 @@ CONFIG_SCHEMA = cv.All(
                 device_class=DEVICE_CLASS_NITROUS_OXIDE,
                 state_class=STATE_CLASS_MEASUREMENT,
             ).extend(GAS_SENSOR),
-            cv.Optional(CONF_RAW): cv.uint16_t,
+            cv.Optional(CONF_RAW): sensor.sensor_schema(
+                icon=ICON_RADIATOR,
+                accuracy_decimals=0,
+                device_class=DEVICE_CLASS_VOLATILE_ORGANIC_COMPOUNDS,
+                state_class=STATE_CLASS_MEASUREMENT,
+            ).extend(GAS_SENSOR),
+            cv.Optional(CONF_NOX): sensor.sensor_schema(
+                icon=ICON_RADIATOR,
+                accuracy_decimals=0,
+                device_class=DEVICE_CLASS_NITROUS_OXIDE,
+                state_class=STATE_CLASS_MEASUREMENT,
+            ).extend(GAS_SENSOR),
             cv.Optional(CONF_STORE_BASELINE, default=True): cv.boolean,
             cv.Optional(CONF_VOC_BASELINE): cv.hex_uint16_t,
             cv.Optional(CONF_COMPENSATION): cv.Schema(
