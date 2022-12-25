@@ -126,7 +126,7 @@ class SGP4xComponent : public PollingComponent, public sensor::Sensor, public se
   int32_t voc_index_ = 0;
 
   sensor::Sensor *nox_sensor_{nullptr};
-  int32_t nox_index_ = 0;
+  uint32_t nox_index_ = 0;
   NOxGasIndexAlgorithm nox_algorithm_;
   optional<GasTuning> nox_tuning_params_;
 
