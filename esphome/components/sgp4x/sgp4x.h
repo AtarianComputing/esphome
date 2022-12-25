@@ -77,7 +77,7 @@ class SGP4xComponent : public PollingComponent, public sensor::Sensor, public se
   float get_setup_priority() const override { return setup_priority::DATA; }
   void set_store_baseline(bool store_baseline) { store_baseline_ = store_baseline; }
   void set_voc_sensor(sensor::Sensor *voc_sensor) { voc_sensor_ = voc_sensor; }
-  void set_raw_sensor(sensor::Sensor *raw_sensor) { voc_sraw = raw_sensor; }
+  void set_raw_sensor(sensor::Sensor *raw_sensor) { voc_raw_ = raw_sensor; }
   void set_nox_sensor(sensor::Sensor *nox_sensor) { nox_sensor_ = nox_sensor; }
   void set_voc_algorithm_tuning(uint16_t index_offset, uint16_t learning_time_offset_hours,
                                 uint16_t learning_time_gain_hours, uint16_t gating_max_duration_minutes,
@@ -131,7 +131,7 @@ class SGP4xComponent : public PollingComponent, public sensor::Sensor, public se
   optional<GasTuning> nox_tuning_params_;
 
   sensor::Sensor *raw_sensor_{nullptr};
-  //int32_t  voc_raw_ = 0;
+  voc_raw_ = voc_sraw;
 
   uint16_t measure_time_;
   uint8_t samples_read_ = 0;
