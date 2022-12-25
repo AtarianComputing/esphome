@@ -72,6 +72,7 @@ class SGP4xComponent : public PollingComponent, public sensor::Sensor, public se
 
   void setup() override;
   void update() override;
+  void update_raw() override;
   void update_gas_indices();
   void dump_config() override;
   float get_setup_priority() const override { return setup_priority::DATA; }

@@ -256,7 +256,7 @@ bool SGP4xComponent::measure_raw_(uint16_t &voc_raw, uint16_t &nox_raw) {
   }
   voc_raw = raw_data[0];
   nox_raw = raw_data[1];  // either 0 or the measured NOx ticks
-  voc_raw_ = voc_raw
+  voc_raw_ = voc_raw;
   return true;
 }
 
