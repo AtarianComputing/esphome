@@ -165,7 +165,7 @@ bool SGP4xComponent::measure_gas_indices_(int32_t &voc, int32_t &nox) {
   if (nox_sensor_) {
     nox = nox_algorithm_.process(nox_sraw);
   }
-  ESP_LOGV(TAG, "VOC = %d, NOx = %d", voc, nox);
+  ESP_LOGV(TAG, "VOC = %d, NOx = %d, RAW = %d", voc, nox, voc_sraw);
   // Store baselines after defined interval or if the difference between current and stored baseline becomes too
   // much
   if (this->store_baseline_ && this->seconds_since_last_store_ > SHORTEST_BASELINE_STORE_INTERVAL) {
