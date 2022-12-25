@@ -160,7 +160,7 @@ bool SGP4xComponent::measure_gas_indices_(int32_t &voc, int32_t &nox) {
     return false;
 
   this->status_clear_warning();
-
+  this->raw_sensor_->publish_state(this->voc_raw_);
   voc = voc_algorithm_.process(voc_sraw);
   if (nox_sensor_) {
     nox = nox_algorithm_.process(nox_sraw);
