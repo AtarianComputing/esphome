@@ -256,6 +256,7 @@ bool SGP4xComponent::measure_raw_(uint16_t &voc_raw, uint16_t &nox_raw) {
   }
   voc_raw = raw_data[0];
   nox_raw = raw_data[1];  // either 0 or the measured NOx ticks
+  voc_raw_ = voc_raw
   return true;
 }
 
@@ -299,6 +300,13 @@ void SGP4xComponent::update() {
     }
   }
 }
+
+void SGP4xComponent::update_raw() {
+  if (this->voc_sensor_) {
+    this->voc_sensor_->publish_state(this->voc_raw_);
+  }
+}
+
 
 void SGP4xComponent::dump_config() {
   ESP_LOGCONFIG(TAG, "SGP4x:");

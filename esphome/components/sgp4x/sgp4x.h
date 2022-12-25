@@ -123,6 +123,7 @@ class SGP4xComponent : public PollingComponent, public sensor::Sensor, public se
   float voc_state0_;
   float voc_state1_;
   int32_t voc_index_ = 0;
+  int32_t voc_raw_ = 0;
 
   sensor::Sensor *nox_sensor_{nullptr};
   int32_t nox_index_ = 0;
