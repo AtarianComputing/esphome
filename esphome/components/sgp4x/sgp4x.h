@@ -133,7 +133,7 @@ class SGP4xComponent : public PollingComponent, public sensor::Sensor, public se
   optional<GasTuning> nox_tuning_params_;
 
   sensor::Sensor *raw_sensor_{nullptr};
-  uint16_t voc_raw_;
+  voc_raw_ =0;
 
   uint16_t measure_time_;
   uint8_t samples_read_ = 0;
