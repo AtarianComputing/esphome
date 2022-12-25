@@ -345,6 +345,7 @@ void SGP4xComponent::dump_config() {
   }
   LOG_SENSOR("  ", "VOC", this->voc_sensor_);
   LOG_SENSOR("  ", "NOx", this->nox_sensor_);
+  LOG_SENSOR("  ", "RAW", this->voc_raw_);
 }
 
 }  // namespace sgp4x
