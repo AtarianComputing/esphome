@@ -111,6 +111,8 @@ class SGP4xComponent : public PollingComponent, public sensor::Sensor, public se
   bool measure_gas_indices_(int32_t &voc, int32_t &nox);
   bool measure_raw_(uint16_t &voc_raw, uint16_t &nox_raw);
 
+
+
   SgpType sgp_type_{SGP40};
   uint64_t serial_number_;
   uint16_t featureset_;
@@ -131,7 +133,7 @@ class SGP4xComponent : public PollingComponent, public sensor::Sensor, public se
   optional<GasTuning> nox_tuning_params_;
 
   sensor::Sensor *raw_sensor_{nullptr};
-  uint16_t voc_raw_;
+  int16_t voc_raw_;
 
   uint16_t measure_time_;
   uint8_t samples_read_ = 0;
