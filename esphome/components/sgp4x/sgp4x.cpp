@@ -153,18 +153,13 @@ void SGP4xComponent::self_test_() {
  * @param humidity The measured relative humidity in % rH
  * @return int32_t The VOC Index
  */
-bool SGP4xComponent::measure_gas_indices_(int32_t &voc, int32_t &nox, uint16_t &raw) {
+bool SGP4xComponent::measure_gas_indices_(int32_t &voc, int32_t &nox) {
   uint16_t voc_sraw;
   uint16_t nox_sraw;
   if (!measure_raw_(voc_sraw, nox_sraw))
     return false;
 
   this->status_clear_warning();
-  raw = voc_sraw;
-  uint16_t raw_sensor;
-  if (this->raw_sensor_ != nullptr) {
-    this->raw_sensor_ = raw;
-  }
   voc = voc_algorithm_.process(voc_sraw);
   if (nox_sensor_) {
     nox = nox_algorithm_.process(nox_sraw);
@@ -253,6 +248,11 @@ bool SGP4xComponent::measure_raw_(uint16_t &voc_raw, uint16_t &nox_raw) {
   delay(measure_time_);
   uint16_t raw_data[2];
   raw_data[1] = 0;
+  float raw_voc = this->read_data(raw_data, response_words);
+  if (this->raw_sensor_ != nullptr) {
+    this->raw_sensor_->publish_state(raw_voc);
+    this->status_clear_warning();
+  }
   if (!this->read_data(raw_data, response_words)) {
     this->status_set_warning();
     ESP_LOGD(TAG, "read error (%d)", this->last_error_);
@@ -268,15 +268,9 @@ void SGP4xComponent::update_gas_indices() {
     return;
 
   this->seconds_since_last_store_ += 1;
-  if (!this->measure_gas_indices_(this->voc_index_, this->nox_index_, this->voc_raw_)) {
+  if (!this->measure_gas_indices_(this->voc_index_, this->nox_index_)) {
     // Set values to UINT16_MAX to indicate failure
-    this->voc_index_ = this->nox_index_ = this->voc_raw_ = UINT16_MAX;
-    ESP_LOGE(TAG, "measure gas indices failed");
-    return;
-  }
-  if (this->measure_gas_indices_(this->voc_index_, this->nox_index_, this->voc_raw_)) {
-    // Set values to UINT16_MAX to indicate failure
-    this->voc_raw_ = raw;
+    this->voc_index_ = this->nox_index_ = UINT16_MAX;
     ESP_LOGE(TAG, "measure gas indices failed");
     return;
   }
@@ -307,9 +301,6 @@ void SGP4xComponent::update() {
     } else {
       this->status_set_warning();
     }
-  }
-  if (this->raw_sensor_) {
-    this->raw_sensor_->publish_state(this->voc_raw_);
   }
 }
 
