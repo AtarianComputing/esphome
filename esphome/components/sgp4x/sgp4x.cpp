@@ -302,8 +302,8 @@ void SGP4xComponent::update() {
 }
 
 void SGP4xComponent::update_raw() {
-  if (this->voc_sensor_) {
-    this->voc_sensor_->publish_state(this->voc_raw_);
+  if (this->raw_sensor_) {
+    this->raw_sensor_->publish_state(this->voc_raw_);
   }
 }
 
@@ -344,8 +344,8 @@ void SGP4xComponent::dump_config() {
     ESP_LOGCONFIG(TAG, "  Compensation: No source configured");
   }
   LOG_SENSOR("  ", "VOC", this->voc_sensor_);
-  //LOG_SENSOR("  ", "NOx", this->nox_sensor_);
-  LOG_SENSOR("  ", "RAW", this->voc_raw_);
+  LOG_SENSOR("  ", "NOx", this->nox_sensor_);
+  LOG_SENSOR("  ", "RAW", this->raw_sensor_);
 }
 
 }  // namespace sgp4x
