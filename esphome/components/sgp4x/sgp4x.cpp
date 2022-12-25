@@ -248,7 +248,7 @@ bool SGP4xComponent::measure_raw_(uint16_t &voc_raw, uint16_t &nox_raw) {
   delay(measure_time_);
   uint16_t raw_data[2];
   raw_data[1] = 0;
-  float raw_voc = this->read_data(raw_data, response_words);
+  uint16_t raw_voc = this->read_data(raw_data, response_words);
   if (this->raw_sensor_ != nullptr) {
     this->raw_sensor_->publish_state(raw_voc);
     this->status_clear_warning();
