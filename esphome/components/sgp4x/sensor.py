@@ -34,6 +34,7 @@ CONF_LEARNING_TIME_OFFSET_HOURS = "learning_time_offset_hours"
 CONF_NOX = "nox"
 CONF_STD_INITIAL = "std_initial"
 CONF_VOC = "voc"
+CONF_RAW = "raw"
 CONF_VOC_BASELINE = "voc_baseline"
 
 
@@ -74,6 +75,12 @@ CONFIG_SCHEMA = cv.All(
                 icon=ICON_RADIATOR,
                 accuracy_decimals=0,
                 device_class=DEVICE_CLASS_NITROUS_OXIDE,
+                state_class=STATE_CLASS_MEASUREMENT,
+            ).extend(GAS_SENSOR),
+            cv.Optional(CONF_RAW): sensor.sensor_schema(
+                icon=ICON_RADIATOR,
+                accuracy_decimals=0,
+                device_class=DEVICE_CLASS_VOLATILE_ORGANIC_COMPOUNDS,
                 state_class=STATE_CLASS_MEASUREMENT,
             ).extend(GAS_SENSOR),
             cv.Optional(CONF_STORE_BASELINE, default=True): cv.boolean,
