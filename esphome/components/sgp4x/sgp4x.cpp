@@ -266,7 +266,7 @@ void SGP4xComponent::update_gas_indices() {
   this->seconds_since_last_store_ += 1;
   if (!this->measure_gas_indices_(this->voc_index_, this->nox_index_)) {
     // Set values to UINT16_MAX to indicate failure
-    this->voc_index_ = this->nox_index_ = this->voc_raw_ = UINT16_MAX;
+    this->voc_index_ = this->nox_index_ = UINT16_MAX;
     ESP_LOGE(TAG, "measure gas indices failed");
     return;
   }
