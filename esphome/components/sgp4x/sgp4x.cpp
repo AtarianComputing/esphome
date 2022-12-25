@@ -258,7 +258,7 @@ bool SGP4xComponent::measure_raw_(uint16_t &voc_raw, uint16_t &nox_raw) {
   nox_raw = raw_data[1];  // either 0 or the measured NOx ticks
   uint16_t raw_sensor;
   if (this->raw_sensor_ != nullptr) {
-    raw_sensor = this->raw_sensor_->state);
+    raw_sensor = this->raw_sensor_->state;
   }
   return true;
 }
