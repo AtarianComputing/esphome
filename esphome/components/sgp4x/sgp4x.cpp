@@ -290,10 +290,14 @@ void SGP4xComponent::update() {
       this->status_set_warning();
     }
   }
-  //if (this->raw_sensor_) {
-    //  this->raw_sensor_->publish_state(this->voc_raw_);
-   // }
- // }
+  if (this->raw_sensor_) {
+    if (this->voc_raw_ != UINT16_MAX) {
+      this->status_clear_warning();
+      this->raw_sensor_->publish_state(this->voc_raw_);
+    } else {
+      this->status_set_warning();
+    }
+  }
   if (this->nox_sensor_) {
     if (this->nox_index_ != UINT16_MAX) {
       this->status_clear_warning();
