@@ -293,7 +293,7 @@ void SGP4xComponent::update() {
     uint16_t nox_sraw;
     uint16_t raw_voc = measure_raw_(voc_sraw, nox_sraw);
   if (this->raw_sensor_ != nullptr) {
-    this->raw_sensor_->publish_state(voc_raw_);
+    this->raw_sensor_->publish_state(raw_voc);
     this->status_clear_warning();
   }
   if (this->nox_sensor_) {
