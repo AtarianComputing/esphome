@@ -248,11 +248,6 @@ bool SGP4xComponent::measure_raw_(uint16_t &voc_raw, uint16_t &nox_raw) {
   delay(measure_time_);
   uint16_t raw_data[2];
   raw_data[1] = 0;
-  uint16_t raw_voc = this->read_data(raw_data, response_words);
-  if (this->raw_sensor_ != nullptr) {
-    this->raw_sensor_->publish_state(raw_voc);
-    this->status_clear_warning();
-  }
   if (!this->read_data(raw_data, response_words)) {
     this->status_set_warning();
     ESP_LOGD(TAG, "read error (%d)", this->last_error_);
@@ -293,6 +288,13 @@ void SGP4xComponent::update() {
     } else {
       this->status_set_warning();
     }
+  }
+    uint16_t voc_sraw;
+    uint16_t nox_sraw;
+    uint16_t raw_voc = measure_raw_(voc_sraw, nox_sraw);
+  if (this->raw_sensor_ != nullptr) {
+    this->raw_sensor_->publish_state(voc_raw_);
+    this->status_clear_warning();
   }
   if (this->nox_sensor_) {
     if (this->nox_index_ != UINT16_MAX) {
